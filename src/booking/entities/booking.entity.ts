@@ -3,18 +3,18 @@ import { Document, HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum BookingStatusEnum {
-  PENDING = 'pending',
-  CONFIRMED = 'confirmed',
-  CANCELLED = 'cancelled',
+  Pending = 'pending',
+  Confirmed = 'confirmed',
+  Cancelled = 'cancelled',
 }
 
 export enum BookingPaymentEnum {
-  PENDING = 'pending',
-  PAID = 'paid',
+  Pending = 'pending',
+  Paid = 'paid',
 }
 
-@Schema()
-export class Booking extends Document {
+@Schema({ timestamps: true })
+export class Booking {
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Artist',
@@ -37,19 +37,21 @@ export class Booking extends Document {
   organizerId: string;
 
   @Prop({
-    default: BookingStatusEnum.PENDING,
-    type: BookingStatusEnum,
+    type: String,
+    enum: Object.values(BookingStatusEnum),
+    default: BookingStatusEnum.Pending,
   })
   status: BookingStatusEnum;
 
   @Prop({
-    default: BookingPaymentEnum.PENDING,
-    type: BookingPaymentEnum,
+    type: String,
+    enum: Object.values(BookingPaymentEnum),
+    default: BookingPaymentEnum.Pending,
   })
   paymentStatus: BookingPaymentEnum;
 
   @Prop({
-    type: Date,
+    default: Date.now,
   })
   createdAt: Date;
 }

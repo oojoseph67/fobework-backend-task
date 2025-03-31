@@ -5,6 +5,6 @@ export default Joi.object({
     .valid('production', 'development', 'test', 'staging')
     .default('development'),
   MONGODB_URI: Joi.string().required(),
-  PORT: Joi.number().default(8888),
+  PORT: Joi.number().default(8111),
   HOST: Joi.string().default('0.0.0.0'),
 });

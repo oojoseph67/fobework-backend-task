@@ -16,7 +16,7 @@ const ENV = process.env.NODE_ENV || 'development';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ENV === 'development' ? `.env.${ENV}` : `.env`,
+      envFilePath: ENV === 'development' ? `.env.${ENV}.local` : `.env`,
       load: [databaseConfig],
       validationSchema: environmentValidation,
     }),

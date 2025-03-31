@@ -2,44 +2,41 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, HydratedDocument } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 
-export enum UserRole  {
-    User = 'User',
-    ORGANIZER = 'organizer'
+export enum UserRole {
+  User = 'User',
+  ORGANIZER = 'organizer',
 }
 
-@Schema()
-export class User extends Document {
+@Schema({ timestamps: true })
+export class User {
   @Prop({
-    type: String,
     required: true,
   })
   name: string;
 
   @Prop({
-    type: String,
     required: true,
+    unique: true,
   })
   email: string;
 
   @Prop({
-    type: String,
     required: true,
   })
   password: string;
 
   @Prop({
-    type: UserRole,
-    required: true,
+    type: String,
+    enum: UserRole,
+    default: UserRole.User,
   })
-  role: string;
+  role: UserRole;
 
   @Prop({
-    type: Date,
-    required: true,
+    default: Date.now,
   })
   createdAt: Date;
 }
 
 export type UserDocument = HydratedDocument<User>;
-
 export const UserSchema = SchemaFactory.createForClass(User);
