@@ -3,6 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './users/users.module';
+import { ArtistModule } from './artist/artist.module';
+import { EventsModule } from './events/events.module';
+import { BookingModule } from './booking/booking.module';
 import databaseConfig from './config/database.config';
 import environmentValidation from './config/environmentValidation';
 
@@ -26,6 +30,14 @@ const ENV = process.env.NODE_ENV || 'development';
         useUnifiedTopology: true,
       }),
     }),
+
+    UsersModule,
+
+    ArtistModule,
+
+    EventsModule,
+
+    BookingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
