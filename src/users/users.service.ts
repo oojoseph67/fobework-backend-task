@@ -22,7 +22,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const { email, password } = createUserDto;
 
-    const existingUser = this.userModel.findOne({ email });
+    const existingUser = await this.userModel.findOne({ email });
 
     if (existingUser) {
       throw new HttpException(
@@ -37,7 +37,7 @@ export class UsersService {
 
     const user = await this.userModel.create({
       ...createUserDto,
-      password: hashedPassword, 
+      password: hashedPassword,
     });
     user.save();
 
@@ -77,7 +77,7 @@ export class UsersService {
 
   async findUserByEmail(email: string) {
     try {
-      const user = this.userModel.findOne({ email });
+      const user = await this.userModel.findOne({ email });
 
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
@@ -91,7 +91,7 @@ export class UsersService {
 
   async findById(id: number) {
     try {
-      const user = this.userModel.findById(id);
+      const user = await this.userModel.findById(id);
 
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);

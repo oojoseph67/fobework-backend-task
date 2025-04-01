@@ -13,22 +13,22 @@ export class ArtistController {
   }
 
   @Get()
-  findAll() {
+  getAllArtists() {
     return this.artistService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.artistService.findOne(+id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.artistService.findOne(+id);
+  // }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
-    return this.artistService.update(+id, updateArtistDto);
-  }
+  // @Patch(':id')
+  // update(@Param('id') id: string, @Body() updateArtistDto: UpdateArtistDto) {
+  //   return this.artistService.update(+id, updateArtistDto);
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.artistService.remove(+id);
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   return this.artistService.remove(+id);
+  // }
 }
