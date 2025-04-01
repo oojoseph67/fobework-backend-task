@@ -31,7 +31,7 @@ async function bootstrap() {
       'https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt',
     )
     .addServer('http://localhost:8111', 'Development Server')
-    .addServer('', 'Production Server')
+    .addServer('https://fobework-backend-task.onrender.com', 'Production Server')
     // .addBearerAuth({
     //   type: 'http',
     //   name: 'Authorization',

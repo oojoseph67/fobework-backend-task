@@ -45,6 +45,11 @@ export class CreateEventDto {
   @IsDate()
   date: Date;
 
+  @ApiProperty({ description: 'Number of tickets for the event' })
+  @IsNotEmpty()
+  @IsNumber()
+  numberOfTickets: number;
+
   // @ApiProperty({
   //   description: 'Event budget in USD',
   //   example: 5000,

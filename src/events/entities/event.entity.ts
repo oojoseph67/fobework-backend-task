@@ -35,13 +35,13 @@ export class Event extends Document {
   })
   date: Date;
 
-  // @ApiProperty({ description: 'Event budget' })
-  // @Prop({
-  //   type: Number,
-  //   required: true,
-  //   min: 0,
-  // })
-  // budget: number;
+  @ApiProperty({ description: 'Event number of tickets' })
+  @Prop({
+    type: Number,
+    required: true,
+    min: 0,
+  })
+  numberOfTickets: number;
 
   // @ApiProperty({ description: 'List of artists performing at the event' })
   // @Prop({
