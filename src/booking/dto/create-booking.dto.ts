@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsMongoId, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsMongoId, IsEnum, IsNumber, Min } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   BookingPaymentEnum,
@@ -22,20 +22,30 @@ export class CreateBookingDto {
   organizerId: string;
 
   @ApiProperty({
-    description: 'Booking status',
-    enum: BookingStatusEnum,
-    example: BookingStatusEnum.Pending,
+    description: 'Event budget in USD',
+    example: 5000,
+    minimum: 0,
   })
   @IsNotEmpty()
-  @IsEnum(BookingStatusEnum)
-  status: BookingStatusEnum;
+  @IsNumber()
+  @Min(0)
+  budget: number;
 
-  @ApiProperty({
-    description: 'Payment status',
-    enum: BookingPaymentEnum,
-    example: BookingPaymentEnum.Pending,
-  })
-  @IsNotEmpty()
-  @IsEnum(BookingPaymentEnum)
-  paymentStatus: BookingPaymentEnum;
+  // @ApiProperty({
+  //   description: 'Booking status',
+  //   enum: BookingStatusEnum,
+  //   example: BookingStatusEnum.Pending,
+  // })
+  // @IsNotEmpty()
+  // @IsEnum(BookingStatusEnum)
+  // status: BookingStatusEnum;
+
+  // @ApiProperty({
+  //   description: 'Payment status',
+  //   enum: BookingPaymentEnum,
+  //   example: BookingPaymentEnum.Pending,
+  // })
+  // @IsNotEmpty()
+  // @IsEnum(BookingPaymentEnum)
+  // paymentStatus: BookingPaymentEnum;
 }

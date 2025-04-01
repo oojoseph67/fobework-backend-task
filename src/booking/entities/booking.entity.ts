@@ -50,6 +50,14 @@ export class Booking {
   })
   paymentStatus: BookingPaymentEnum;
 
+  @ApiProperty({ description: 'Artist Booking budget' })
+  @Prop({
+    type: Number,
+    required: true,
+    min: 0,
+  })
+  budget: number;
+
   @Prop({
     default: Date.now,
   })

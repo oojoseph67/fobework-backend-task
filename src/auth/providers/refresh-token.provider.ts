@@ -40,7 +40,9 @@ export class RefreshTokenProvider {
         issuer: this.jwtConfiguration.jwtTokenIssuer,
       });
       // fetch the user
-      const user = await this.userService.findById(sub);
+      const checkUser = await this.userService.findById(sub.toString());
+
+      const { user } = checkUser;
 
       // generate new access and refresh tokens
       const { accessToken, refreshToken } =

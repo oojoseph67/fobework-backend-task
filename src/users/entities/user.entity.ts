@@ -3,7 +3,7 @@ import { Document, HydratedDocument } from 'mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum UserRole {
-  User = 'User',
+  User = 'user',
   ORGANIZER = 'organizer',
 }
 
@@ -30,7 +30,7 @@ export class User extends Document {
     enum: UserRole,
     default: UserRole.User,
   })
-  role: UserRole;
+  role?: UserRole;
 
   @Prop({
     default: Date.now,

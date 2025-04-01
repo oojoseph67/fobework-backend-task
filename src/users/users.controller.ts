@@ -24,10 +24,10 @@ export class UsersController {
     return this.usersService.login(loginDto);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
+  @Get(':id')
+  singleUser(@Param('id') id: string) {
+    return this.usersService.findById(id);
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {

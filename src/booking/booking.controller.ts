@@ -29,14 +29,19 @@ export class BookingController {
   }
 
   @Patch(':id/confirm')
-  confirmBooking(@Param('id', ToNumberPipe) id: number) {
+  confirmBooking(@Param('id') id: string) {
     return this.bookingService.confirmBooking(id);
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.bookingService.findOne(+id);
-  // }
+  @Patch(':id/confirm/payment')
+  confirmBookingPayment(@Param('id') id: string) {
+    return this.bookingService.confirmBookingPayment(id);
+  }
+
+  @Get()
+  getAllBookings() {
+    return this.bookingService.findAll();
+  }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateBookingDto: UpdateBookingDto) {

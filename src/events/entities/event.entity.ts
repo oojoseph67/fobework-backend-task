@@ -35,25 +35,26 @@ export class Event extends Document {
   })
   date: Date;
 
-  @ApiProperty({ description: 'Event budget' })
-  @Prop({
-    type: Number,
-    required: true,
-    min: 0,
-  })
-  budget: number;
+  // @ApiProperty({ description: 'Event budget' })
+  // @Prop({
+  //   type: Number,
+  //   required: true,
+  //   min: 0,
+  // })
+  // budget: number;
 
-  @ApiProperty({ description: 'List of artists performing at the event' })
-  @Prop({
-    type: [
-      {
-        type: MongooseSchema.Types.ObjectId,
-        ref: 'Artist',
-      },
-    ],
-    default: [],
-  })
-  artists: string[];
+  // @ApiProperty({ description: 'List of artists performing at the event' })
+  // @Prop({
+  //   type: [
+  //     {
+  //       type: MongooseSchema.Types.ObjectId,
+  //       ref: 'Artist',
+        
+  //     },
+  //   ],
+  //   default: [],
+  // })
+  // artists: string[];
 
   @ApiProperty({ description: 'Event creation timestamp' })
   @Prop({

@@ -9,12 +9,16 @@ import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
 import { LoginDto, CreateUserDto } from './dto';
 import { BcryptProvider } from 'src/auth/providers/bcrypt.provider';
+import { Artist } from 'src/artist/entities/artist.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<User>,
+
+    @InjectModel(Artist.name)
+    private readonly artistModel: Model<Artist>,
 
     private readonly hashingProvider: BcryptProvider,
   ) {}
@@ -41,8 +45,7 @@ export class UsersService {
     });
     user.save();
 
-    //TODO: add an interceptor that removes password
-    return user;
+    return await this.userModel.findById(user._id).select('-password');
   }
 
   async login(loginDto: LoginDto) {
@@ -89,15 +92,32 @@ export class UsersService {
     }
   }
 
-  async findById(id: number) {
+  async findById(id: string) {
     try {
-      const user = await this.userModel.findById(id);
+      const user = await this.userModel.findById(id).select('-password');
 
       if (!user) {
         throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
 
-      return user;
+      let artist: Artist;
+
+      try {
+        artist = await this.artistModel.findOne({
+          userId: id,
+        });
+      } catch (error) {
+        throw new HttpException(
+          'Failed to check if user is an artist',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if (artist) {
+        return { user, artist };
+      } else {
+        return { user };
+      }
     } catch (error) {
       throw new RequestTimeoutException(`${error.message}`);
     }
