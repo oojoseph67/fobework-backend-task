@@ -3,10 +3,11 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
+import { BcryptProvider } from '../auth/providers/bcrypt.provider';
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, BcryptProvider],
   imports: [
     MongooseModule.forFeature([
       {
