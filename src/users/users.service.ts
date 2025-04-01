@@ -8,8 +8,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
 import { LoginDto, CreateUserDto } from './dto';
-import { BcryptProvider } from 'src/auth/providers/bcrypt.provider';
 import { Artist } from 'src/artist/entities/artist.entity';
+import { Argon2Provider } from 'src/auth/providers/argon2.provider';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +20,7 @@ export class UsersService {
     @InjectModel(Artist.name)
     private readonly artistModel: Model<Artist>,
 
-    private readonly hashingProvider: BcryptProvider,
+    private readonly hashingProvider: Argon2Provider,
   ) {}
 
   async create(createUserDto: CreateUserDto) {

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { HashingProvider } from './hashing.provider';
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 
 @Injectable()
-export class BcryptProvider implements HashingProvider {
+export class Argon2Provider implements HashingProvider {
   /**
-   * Hashes a given password using bcrypt.
+   * Hashes a given password using Argon2.
    *
    * @param options - The options for hashing the password.
    * @param options.password - The password to be hashed. Can be a string or a Buffer.
@@ -17,10 +17,12 @@ export class BcryptProvider implements HashingProvider {
   }: {
     password: string | Buffer;
   }): Promise<string> {
-    const salt = await bcrypt.genSalt();
-    const hashed = bcrypt.hash(password, salt);
-
-    return hashed;
+    return argon2.hash(password, {
+      type: argon2.argon2id,
+      memoryCost: 65536, // 64 MiB
+      timeCost: 3, // 3 iterations
+      parallelism: 4, // 4 threads
+    });
   }
 
   /**
@@ -31,14 +33,13 @@ export class BcryptProvider implements HashingProvider {
    *
    * @returns A Promise that resolves to a boolean indicating whether the password matches the hashed password.
    */
-  comparePasswords({
+  async comparePasswords({
     password,
     hashedPassword,
   }: {
     password: string | Buffer;
     hashedPassword: string;
   }): Promise<boolean> {
-    const compare = bcrypt.compare(password, hashedPassword);
-    return compare;
+    return argon2.verify(hashedPassword, password);
   }
-}
+} 
